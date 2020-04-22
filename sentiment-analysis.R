@@ -8,6 +8,7 @@
 #install.packages("syuzhet")
 #install.packages("maptools")
 #install.packages("timelineR")
+#install.packages("ggpubr")
 
 library(rtweet)
 library(dplyr)
@@ -20,6 +21,8 @@ library(wordcloud2)
 library(syuzhet)
 library(maptools)
 require(timelineR)
+library(ggpubr)
+theme_set(theme_pubr())
 
 
 library(wordcloud) #to plot wordcloud
@@ -30,10 +33,10 @@ library(stringr) #required for some functions
 # Twitter Login
 # =============
 ## TWITTER TOKEN CREATION
-#api_key <- "<<your API key>>"
-#api_secret_key <- "your API secret"
-#access_token <- "your access token"
-#access_token_secret <- "your token secret"
+api_key <- "<<your API key>>"
+api_secret_key <- "your API secret"
+access_token <- "your access token"
+access_token_secret <- "your token secret"
 
 ## authenticate via web browser
 token <- create_token(
@@ -124,3 +127,13 @@ wordcloud(words = names(screename_count), freq = screename_count, max.words = 40
 # Tweets over time graph
 qplot(books_to_read_tweet$created_at, bins = 100, main = "tweets over time", xlab = "Date", ylab = "Tweet Count", color = "brown")
 
+# Tweets by source
+tweet_source_table = table(books_to_read_tweet$source)
+source_df = as.data.frame(tweet_source_table)
+colnames(source_df) = c("source", "count")
+sorted_source_df <- source_df[with(source_df, order(-count)), ]
+top_df = sorted_source_df[1:10,]
+qplot(source, count, data = top_df) + coord_flip()
+
+ggplot(top_df, aes(x=count, y=source), geom="histogram")+
+  geom_bar(stat="identity")
