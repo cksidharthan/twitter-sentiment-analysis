@@ -15,7 +15,7 @@ library(tidyquant)
 api_key <- "ZoFcbnA7JGqYWKRo5rc27v2JW"
 api_secret_key <- "COi030ksGl6glIlMongUBL3GvP4XtynTP3CfrfcN9BUhNymGY0"
 access_token <- "1225901758620278784-azx3OOiFce0JRER4NlSBLft6UUckHw"
-access_token_secret <- "rGAtpbPuB8KgRv36Ej8aD4wi0KqwY548DQQdHQG5BNUgR"
+access_token_secret <- "rGA4wi0KqwY548DQQdHQG5BNUgR"
 
 token <- create_token(
   app = "HashtagAnalyticsProject",
